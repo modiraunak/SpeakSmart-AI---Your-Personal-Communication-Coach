@@ -1,0 +1,34 @@
+# SpeakSmart AI - Minimal Dependencies for Quick Start
+# Install these first, then add advanced features
+
+# Core Framework
+streamlit>=1.28.0
+
+# Data Processing
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Visualization
+plotly>=5.17.0
+matplotlib>=3.7.0
+
+# Configuration
+PyYAML>=6.0
+
+# Image Processing (basic)
+Pillow>=10.0.0
+
+# Optional Audio Processing (install if needed)
+# librosa>=0.10.1
+# soundfile>=0.12.1
+
+# Optional Video Processing (install if needed)
+# opencv-python>=4.8.0
+
+# Optional ML Libraries (install if needed)
+# transformers>=4.35.0
+# torch>=2.0.0
+
+# Development
+colorlog>=6.7.0

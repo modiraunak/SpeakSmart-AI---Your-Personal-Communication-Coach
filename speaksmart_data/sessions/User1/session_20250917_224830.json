@@ -1,0 +1,12 @@
+{
+  "session_timestamp": "2025-09-17T22:48:30.581311",
+  "user": "User1",
+  "confidence_score": 74,
+  "nervousness_score": 30,
+  "analysis_duration": 14.3,
+  "nervous_moments_count": 0,
+  "improvement_suggestions": [],
+  "ai_insights": {
+    "ai_confidence": 81.47120422552017,
+    "nervousness_category": "High (60%+)",
+    "nervousness_probs": 

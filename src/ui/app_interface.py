@@ -21,7 +21,7 @@ from .components import (
     MetricCard, ProgressRing, EmotionIndicator, 
     InteractiveChart, FileUploadWidget
 )
-from .styles import inject_custom_css, get_theme_colors
+from src.ui.styles import inject_custom_css, get_theme_colors
 from ..analysis.audio_analyzer import AdvancedAudioAnalyzer
 from ..analysis.video_analyzer import VideoEmotionAnalyzer
 from ..models.emotion_models import model_manager, confidence_classifier
