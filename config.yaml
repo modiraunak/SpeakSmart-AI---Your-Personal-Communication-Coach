@@ -1,0 +1,488 @@
+# SpeakSmart AI Configuration File
+# Authors: Team SpeakSmart (Group 256)
+# Version: 2.0
+
+# Application Settings
+app:
+  name: "SpeakSmart AI"
+  version: "2.0.1"
+  description: "Advanced Communication Coach with AI-Powered Analysis"
+  environment: "development"  # development, staging, production
+  debug: true
+  port: 8501
+  host: "localhost"
+
+# Streamlit Configuration
+streamlit:
+  page_config:
+    page_title: "SpeakSmart AI - Communication Coach"
+    page_icon: "🎯"
+    layout: "wide"
+    initial_sidebar_state: "expanded"
+  theme:
+    primaryColor: "#667eea"
+    backgroundColor: "#ffffff"
+    secondaryBackgroundColor: "#f0f2f6"
+    textColor: "#262730"
+    font: "sans serif"
+
+# Audio Analysis Configuration
+audio:
+  # Core settings
+  sample_rate: 44100
+  chunk_duration: 0.05  # seconds
+  analysis_window: 8    # seconds
+  
+  # Pitch detection
+  pitch:
+    min_frequency: 75   # Hz
+    max_frequency: 400  # Hz
+    algorithm: "yin"    # yin, pyin, crepe
+    hop_length: 512
+    threshold: 0.1
+  
+  # Voice activity detection
+  vad:
+    silence_threshold: 0.003
+    min_speech_duration: 0.1  # seconds
+    max_silence_duration: 2.0 # seconds
+  
+  # Feature extraction
+  features:
+    n_mfcc: 13
+    n_fft: 2048
+    window_type: "hann"
+    enable_spectral_features: true
+    enable_prosodic_features: true
+  
+  # Preprocessing
+  preprocessing:
+    noise_reduction: true
+    normalization: true
+    dc_removal: true
+    high_pass_cutoff: 80  # Hz
+    low_pass_cutoff: 8000 # Hz
+  
+  # File handling
+  files:
+    supported_formats: [".wav", ".mp3", ".m4a", ".flac", ".aac", ".ogg"]
+    max_file_size_mb: 100
+    max_duration_minutes: 10
+
+# Video Analysis Configuration
+video:
+  # Core settings
+  frame_skip: 10        # Analyze every Nth frame
+  max_frames: 1000
+  resize_width: 640
+  resize_height: 480
+  
+  # Face detection
+  face_detection:
+    model_selection: 1  # 0 for short-range, 1 for full-range
+    min_detection_confidence: 0.7
+    min_tracking_confidence: 0.5
+    max_num_faces: 1
+    refine_landmarks: true
+  
+  # Pose estimation
+  pose_estimation:
+    model_complexity: 1  # 0, 1, or 2
+    min_detection_confidence: 0.5
+    min_tracking_confidence: 0.5
+    smooth_landmarks: true
+  
+  # Hand detection
+  hand_detection:
+    max_num_hands: 2
+    min_detection_confidence: 0.7
+    min_tracking_confidence: 0.5
+  
+  # Emotion analysis
+  emotion_analysis:
+    enable: true
+    confidence_threshold: 0.6
+    model_name: "j-hartmann/emotion-english-distilroberta-base"
+    batch_size: 8
+  
+  # File handling
+  files:
+    supported_formats: [".mp4", ".avi", ".mov", ".mkv", ".webm", ".wmv"]
+    max_file_size_mb: 500
+    max_duration_minutes: 15
+
+# Machine Learning Models Configuration
+models:
+  # Device settings
+  device: "auto"  # auto, cpu, cuda, mps
+  use_gpu: true
+  mixed_precision: false
+  
+  # Model cache
+  cache_dir: "./models"
+  auto_download: true
+  model_timeout: 300  # seconds
+  
+  # Emotion recognition
+  emotion:
+    model_name: "j-hartmann/emotion-english-distilroberta-base"
+    confidence_threshold: 0.6
+    batch_size: 16
+    max_sequence_length: 512
+  
+  # Speech recognition (optional)
+  speech:
+    model_name: "openai/whisper-base"
+    language: "en"
+    task: "transcribe"
+  
+  # Custom models (if available)
+  custom:
+    confidence_model: null
+    nervousness_model: null
+
+# Analysis Thresholds and Scoring
+scoring:
+  # Confidence levels
+  confidence:
+    excellent: 85    # 85-100%
+    good: 70        # 70-84%
+    fair: 50        # 50-69%
+    poor: 0         # 0-49%
+  
+  # Nervousness levels
+  nervousness:
+    low: 20         # 0-20%
+    moderate: 40    # 21-40%
+    high: 70        # 41-70%
+    very_high: 100  # 71-100%
+  
+  # Eye contact scoring
+  eye_contact:
+    excellent: 80   # 80-100%
+    good: 60       # 60-79%
+    fair: 40       # 40-59%
+    poor: 0        # 0-39%
+  
+  # Weights for overall score calculation
+  weights:
+    vocal_confidence: 0.4
+    visual_presence: 0.3
+    emotional_control: 0.2
+    consistency: 0.1
+
+# Performance and Optimization
+performance:
+  # Processing limits
+  max_concurrent_analyses: 3
+  processing_timeout: 600  # seconds
+  memory_limit_gb: 4
+  
+  # Caching
+  enable_caching: true
+  cache_ttl: 3600  # seconds
+  max_cache_size_mb: 500
+  
+  # Threading
+  max_workers: 4
+  thread_pool_size: 8
+  
+  # Batch processing
+  batch_size: 32
+  max_batch_wait_time: 5  # seconds
+
+# File System Configuration
+filesystem:
+  # Directories
+  temp_dir: "./temp"
+  logs_dir: "./logs"
+  exports_dir: "./exports"
+  uploads_dir: "./uploads"
+  
+  # Cleanup settings
+  auto_cleanup: true
+  cleanup_interval_hours: 24
+  keep_temp_files_hours: 6
+  keep_log_files_days: 30
+  
+  # Security
+  scan_uploads: true
+  max_filename_length: 255
+  allowed_extensions_only: true
+
+# Logging Configuration
+logging:
+  # General settings
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+  date_format: "%Y-%m-%d %H:%M:%S"
+  
+  # Console logging
+  console:
+    enable: true
+    level: "INFO"
+    colored: true
+  
+  # File logging
+  file:
+    enable: true
+    level: "DEBUG"
+    max_size_mb: 10
+    backup_count: 5
+    rotation: "time"  # size, time
+  
+  # Error logging
+  error_file:
+    enable: true
+    level: "ERROR"
+    separate_file: true
+  
+  # Performance logging
+  performance:
+    enable: true
+    log_slow_operations: true
+    slow_threshold_seconds: 1.0
+  
+  # Session logging
+  session:
+    enable: true
+    max_entries_per_session: 1000
+    export_format: "json"
+
+# Database Configuration (if needed)
+database:
+  # SQLite for session storage (optional)
+  enable: false
+  type: "sqlite"
+  url: "sqlite:///speaksmart.db"
+  
+  # Session storage
+  session_storage:
+    type: "memory"  # memory, file, database
+    persistence: false
+    encryption: false
+
+# Security Settings
+security:
+  # File upload security
+  file_scanning:
+    enable: true
+    max_scan_time_seconds: 30
+  
+  # Rate limiting
+  rate_limiting:
+    enable: true
+    requests_per_minute: 60
+    analysis_per_hour: 10
+  
+  # Data privacy
+  privacy:
+    auto_delete_uploads: true
+    delete_after_hours: 24
+    anonymize_logs: false
+    gdpr_compliance: true
+
+# UI/UX Configuration
+ui:
+  # Theme customization
+  theme:
+    primary_color: "#667eea"
+    secondary_color: "#764ba2"
+    success_color: "#28a745"
+    warning_color: "#ffc107"
+    error_color: "#dc3545"
+    info_color: "#17a2b8"
+  
+  # Layout settings
+  layout:
+    sidebar_width: 300
+    main_content_padding: "1rem"
+    metric_card_height: 120
+    chart_default_height: 400
+  
+  # Animation and effects
+  animations:
+    enable: true
+    duration_ms: 300
+    easing: "ease-in-out"
+  
+  # Progress indicators
+  progress:
+    show_percentage: true
+    show_time_estimate: true
+    update_interval_ms: 100
+  
+  # Export options
+  export:
+    enable_json: true
+    enable_csv: true
+    enable_pdf: false
+    default_format: "json"
+
+# Feature Flags
+features:
+  # Core features
+  audio_analysis: true
+  video_analysis: true
+  emotion_detection: true
+  
+  # Advanced features
+  real_time_analysis: true
+  batch_processing: false
+  api_access: false
+  
+  # Experimental features
+  ai_recommendations: true
+  voice_synthesis: false
+  live_streaming: false
+  
+  # Integration features
+  cloud_storage: false
+  social_sharing: false
+  calendar_integration: false
+
+# Development and Debug Settings
+development:
+  # Debug features
+  enable_debug_mode: true
+  show_processing_times: true
+  enable_mock_data: false
+  
+  # Testing
+  enable_test_mode: false
+  test_data_dir: "./test_data"
+  
+  # Profiling
+  enable_profiling: false
+  profile_output_dir: "./profiles"
+  
+  # Hot reload
+  hot_reload: true
+  watch_config_changes: true
+
+# External Services (if needed)
+external_services:
+  # Cloud storage (optional)
+  cloud_storage:
+    provider: null  # aws, gcp, azure
+    bucket: null
+    credentials_file: null
+  
+  # Analytics (optional)
+  analytics:
+    enable: false
+    provider: null  # google, mixpanel
+    api_key: null
+  
+  # Error reporting (optional)
+  error_reporting:
+    enable: false
+    provider: null  # sentry, bugsnag
+    dsn: null
+
+# Limits and Quotas
+limits:
+  # User limits
+  max_sessions_per_user: 50
+  max_analyses_per_day: 100
+  max_storage_mb_per_user: 1000
+  
+  # System limits
+  max_concurrent_users: 100
+  max_total_storage_gb: 50
+  max_processing_queue_size: 1000
+  
+  # Time limits
+  max_session_duration_hours: 24
+  max_analysis_time_minutes: 30
+  max_idle_time_minutes: 60
+
+# Backup and Recovery
+backup:
+  # Data backup
+  enable: false
+  frequency: "daily"  # hourly, daily, weekly
+  retention_days: 30
+  
+  # Configuration backup
+  backup_config: true
+  config_history_count: 10
+  
+  # Recovery options
+  auto_recovery: true
+  backup_location: "./backups"
+
+# Monitoring and Health Checks
+monitoring:
+  # Health checks
+  health_check:
+    enable: true
+    interval_seconds: 60
+    endpoints: ["cpu", "memory", "disk", "models"]
+  
+  # Metrics collection
+  metrics:
+    enable: true
+    collection_interval_seconds: 30
+    retention_hours: 24
+  
+  # Alerts
+  alerts:
+    enable: false
+    cpu_threshold: 80
+    memory_threshold: 85
+    disk_threshold: 90
+
+# Default User Preferences
+defaults:
+  # Analysis preferences
+  analysis_mode: "Audio + Video"
+  input_method: "Upload Files"
+  
+  # Quality settings
+  audio_quality: "High"
+  video_quality: "Standard"
+  
+  # Performance targets
+  confidence_target: 80
+  nervousness_limit: 20
+  
+  # UI preferences
+  show_advanced_metrics: false
+  auto_export_results: false
+  enable_notifications: true
+
+# Version and Compatibility
+compatibility:
+  min_python_version: "3.8"
+  max_python_version: "3.11"
+  
+  # Required packages versions
+  required_packages:
+    streamlit: ">=1.28.0"
+    librosa: ">=0.10.0"
+    opencv-python: ">=4.8.0"
+    numpy: ">=1.24.0"
+    pandas: ">=2.0.0"
+    plotly: ">=5.15.0"
+  
+  # Optional packages
+  optional_packages:
+    mediapipe: ">=0.10.0"
+    transformers: ">=4.30.0"
+    torch: ">=2.0.0"
+    moviepy: ">=1.0.3"
+
+# Environment Variables
+env_vars:
+  # Model paths
+  SPEAKSMART_MODEL_PATH: "./models"
+  SPEAKSMART_CACHE_PATH: "./cache"
+  
+  # API keys (if needed)
+  HUGGINGFACE_API_KEY: null
+  OPENAI_API_KEY: null
+  
+  # Debug settings
+  SPEAKSMART_DEBUG: "true"
+  SPEAKSMART_LOG_LEVEL: "INFO"
