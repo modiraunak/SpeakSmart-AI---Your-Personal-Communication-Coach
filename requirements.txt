@@ -1,9 +1,11 @@
 numpy
 pandas
 matplotlib
+seaborn
+plotly
 streamlit
+altair
 librosa
 soundfile
 opencv-python-headless
 scikit-learn
-altair
