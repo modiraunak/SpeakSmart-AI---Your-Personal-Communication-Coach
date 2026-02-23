@@ -4,7 +4,6 @@ import threading
 from collections import deque
 from datetime import datetime, timedelta
 import json
-
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -13,7 +12,6 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
-
 try:
     from streamlit_webrtc import webrtc_streamer, WebRtcMode
     import av
@@ -22,7 +20,6 @@ try:
     WEBRTC_AVAILABLE = True
 except ImportError:
     WEBRTC_AVAILABLE = False
-
 try:
     import sounddevice as sd
     SOUNDDEVICE_AVAILABLE = True
